@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 
 /**
  * Точка входа: создать экран и передать ему управление.
- * Вся логика вынесена в отдельные классы.
  */
 class MainActivity : AppCompatActivity() {
 
