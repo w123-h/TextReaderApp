@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Текстовый ридер</string>
+    <string name="open_file">Открыть файл</string>
+    <string name="placeholder">Нажмите «Открыть файл» (или эту надпись) и выберите файл .txt или .fb2</string>
+    <string name="error_empty_file">Файл пуст или не содержит текста</string>
+    <string name="error_read">Не удалось прочитать файл: %1$s</string>
+</resources>
