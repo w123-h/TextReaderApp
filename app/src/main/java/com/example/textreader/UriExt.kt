@@ -11,7 +11,8 @@ fun Uri.fileName(contentResolver: ContentResolver): String? {
     contentResolver.query(this, null, null, null, null)?.use { cursor ->
         val nameIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)
         if (nameIndex != -1 && cursor.moveToFirst()) {
-            return cursor.getString(nameIndex)
+            val name = cursor.getString(nameIndex)
+            if (!TextTools.isEmpty(name)) return name
         }
     }
     return lastPathSegment

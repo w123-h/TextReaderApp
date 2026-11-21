@@ -9,7 +9,6 @@ import kotlin.text.charset
 
 /**
  * Читает содержимое выбранного файла.
- * Поддерживаются обычный текст (.txt) и FictionBook (.fb2).
  */
 object BookParser {
 
@@ -38,15 +37,18 @@ object BookParser {
 
         input.use { stream ->
             val bytes = stream.readBytes()
-            if (bytes.isEmpty()) return ""
 
             // Большинство txt в UTF-8, но старые файлы часто в Windows-1251.
             val utf8 = String(bytes, Charsets.UTF_8)
-            return if (utf8.contains('\uFFFD')) {
+            val text = if (utf8.contains('\uFFFD')) {
                 String(bytes, charset("windows-1251"))
             } else {
                 utf8
             }
+
+            // Стандартные текстовые API: убираем BOM и приводим переводы строк.
+            if (TextTools.isEmpty(text)) return ""
+            return TextTools.normalizeLineBreaks(TextTools.stripBom(text))
         }
     }
 
@@ -81,7 +83,6 @@ object BookParser {
                             result.append(parser.text)
                         }
                     }
-
                     XmlPullParser.END_TAG -> {
                         val tag = parser.name
                         if (inBody && (
@@ -90,7 +91,7 @@ object BookParser {
                                 tag.equals("section", ignoreCase = true)
                             )
                         ) {
-                            result.append('\n')
+                            result.appendLine()
                         }
                         if (tag.equals("body", ignoreCase = true)) {
                             inBody = false
@@ -101,6 +102,6 @@ object BookParser {
             }
         }
 
-        return result.toString()
+        return TextTools.normalizeLineBreaks(result.toString())
     }
 }

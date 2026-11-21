@@ -49,7 +49,7 @@ class ReaderScreen(private val activity: ComponentActivity) {
 
             val state = result.fold(
                 onSuccess = { text ->
-                    if (text.isBlank()) {
+                    if (TextTools.isBlank(text)) {
                         ScreenState.Error(
                             activity.getString(R.string.error_empty_file)
                         )
@@ -83,7 +83,7 @@ class ReaderScreen(private val activity: ComponentActivity) {
                 placeholderText.visibility = View.GONE
                 errorText.visibility = View.GONE
                 scrollView.visibility = View.VISIBLE
-                textView.text = state.text
+                textView.setText(TextTools.normalizeLineBreaks(state.text))
                 scrollView.post { scrollView.fullScroll(View.FOCUS_UP) }
             }
 

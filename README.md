@@ -34,6 +34,7 @@ app/src/main/java/com/example/textreader/
 ├── FilePicker.kt    — системный выбор файла (SAF)
 ├── FileLoader.kt    — фоновое чтение файла (корутины)
 ├── UriExt.kt        — получение имени файла из Uri
+├── TextTools.kt     — работа с текстом на стандартных API (TextUtils, kotlin.text)
 └── BookParser.kt    — чтение .txt и разбор .fb2 (XmlPullParser)
 app/src/main/res/layout/activity_main.xml — разметка экрана
 ```
